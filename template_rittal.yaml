@@ -1,0 +1,289 @@
+zabbix_export:
+  version: '6.0'
+  date: '2024-12-16T00:00:00Z'
+  templates:
+    -
+      uuid: 4cb1aabe2b704b5c882963c2ef87d8f6
+      name: 'Template Rittal CMC III PU'
+      template: 'Template_Rittal_CMC_III_PU'
+      description: 'Template for monitoring Rittal CMC III PU via SNMP.'
+      groups:
+        -
+          name: Templates
+      items:
+      - uuid: 2cda26906f254e13985cecdbb7901d1a
+        name: 'Temperatura Processadora'
+        type: SNMP_AGENT
+        key: temperature.sensor_processadora
+        history: 2w
+        description: 'Temperatura Processadora'
+        snmp_oid: 1.3.6.1.4.1.2606.7.4.2.2.1.11.1.2
+        preprocessing:
+          - type: MULTIPLIER
+            parameters:
+              - '0.01'
+
+      - uuid: 5e7f5f4c5b234c4c9b98f2e6b227a8d1
+        name: 'Temperatura 1'
+        type: SNMP_AGENT
+        key: temperature.sensor1
+        history: 2w
+        description: 'Temperatura Sensor 1'
+        snmp_oid: 1.3.6.1.4.1.2606.7.4.2.2.1.11.4.2
+        preprocessing:
+          - type: MULTIPLIER
+            parameters:
+              - '0.01'
+        triggers:
+        - uuid: 9f8b5d3f7a5b4f0d9f2d1a9b2f3b8e7d
+          name: 'Alarme Temperatura Sensor 1 Acima de 35 graus'
+          description: 'Alarme quando Temperatura Sensor 1 for acima de 35 graus'
+          expression: 'last(/Template_Rittal_CMC_III_PU/temperature.sensor1)>35'
+          priority: DISASTER
+
+        - uuid: f678545d34bb4fe1a03f3a795a2294b7
+          name: 'Alarme Temperatura Sensor 1 Acima de 28 graus'
+          description: 'Alarme quando Temperatura Sensor 1 for acima de 28 graus'
+          expression: 'last(/Template_Rittal_CMC_III_PU/temperature.sensor1)>28'
+          priority: HIGH
+
+      - uuid: b4ad6e8b0c9b4b6e8a6e1b0e13fa7e2c
+        name: 'Temperatura 2'
+        type: SNMP_AGENT
+        key: temperature.sensor2
+        history: 2w
+        description: 'Temperatura Sensor 2'
+        snmp_oid: 1.3.6.1.4.1.2606.7.4.2.2.1.11.3.2
+        preprocessing:
+          - type: MULTIPLIER
+            parameters:
+              - '0.01'
+        triggers:
+        - uuid: 3e2f9b7d5c8a4d6b8e3c5a9d2f1b7c8d
+          name: 'Alarme Temperatura Sensor 2 Acima de 35 graus'
+          description: 'Alarme quando Temperatura Sensor 2 for acima de 35 graus'
+          expression: 'last(/Template_Rittal_CMC_III_PU/temperature.sensor2)>35'
+          priority: DISASTER
+
+        - uuid: 20bbd409d17848aebf260b5f34490604
+          name: 'Alarme Temperatura Sensor 2 Acima de 28 graus'
+          description: 'Alarme quando Temperatura Sensor 2 for acima de 28 graus'
+          expression: 'last(/Template_Rittal_CMC_III_PU/temperature.sensor2)>28'
+          priority: HIGH
+
+
+      - uuid: a1f9f8a4c8b74e69a2b3d92b8e2c6d3d
+        name: 'Humidade 1'
+        type: SNMP_AGENT
+        key: humidity.sensor1
+        history: 2w
+        description: 'Humidade Sensor 1'
+        snmp_oid: 1.3.6.1.4.1.2606.7.4.2.2.1.11.3.11
+        preprocessing:
+          - type: MULTIPLIER
+            parameters:
+              - '0.01'
+        triggers:
+        - uuid: 990f277a74914184a1bb61ca7717ba12
+          name: 'Alarme Humidade Sensor 2 Acima de 85%'
+          description: 'Alarme quando Temperatura Sensor 1 for menor que 10%'
+          expression: 'last(/Template_Rittal_CMC_III_PU/humidity.sensor1)<10'
+          priority: DISASTER
+
+        - uuid: e068bac3653a44eb97230a7cbe3d74f9
+          name: 'Alarme Humidade Sensor 1 Acima de 85%'
+          description: 'Alarme quando Temperatura Sensor 1 for acima de 85%'
+          expression: 'last(/Template_Rittal_CMC_III_PU/humidity.sensor1)>85'
+          priority: DISASTER
+
+        - uuid: 5d7178db9f8e498c857ab8b6b61b255e
+          name: 'Alarme Temperatura Humidade 1 Acima de 80%'
+          description: 'Alarme quando Temperatura Sensor 1 for acima de 80%'
+          expression: 'last(/Template_Rittal_CMC_III_PU/humidity.sensor1)>80'
+          priority: HIGH
+
+      - uuid: 6b73e7d3b3f74e9b9f5d2c9f9c9f84c8
+        name: 'Humidade 2'
+        type: SNMP_AGENT
+        key: humidity.sensor2
+        history: 2w
+        description: 'Humidade Sensor 2'
+        snmp_oid: 1.3.6.1.4.1.2606.7.4.2.2.1.11.4.11
+        preprocessing:
+          - type: MULTIPLIER
+            parameters:
+              - '0.01'
+        triggers:
+        - uuid: 990f277a74914184a1bb61ca7717ba11
+          name: 'Alarme Humidade Sensor 2 Acima de 85%'
+          description: 'Alarme quando Temperatura Sensor 2 for menor que 10%'
+          expression: 'last(/Template_Rittal_CMC_III_PU/humidity.sensor2)<10'
+          priority: DISASTER
+
+        - uuid: 990f277a74914184a1bb61ca7717ba1c
+          name: 'Alarme Humidade Sensor 2 Acima de 85%'
+          description: 'Alarme quando Temperatura Sensor 2 for acima de 85%'
+          expression: 'last(/Template_Rittal_CMC_III_PU/humidity.sensor2)>85'
+          priority: DISASTER
+
+        - uuid: 32993b0e7dbb4867b34109bf782babf8
+          name: 'Alarme Temperatura Humidade 2 Acima de 80%'
+          description: 'Alarme quando Temperatura Sensor 2 for acima de 80%'
+          expression: 'last(/Template_Rittal_CMC_III_PU/humidity.sensor2)>80'
+          priority: HIGH
+
+      - uuid: 8c4d3f1b3a8f4a4a8b9e6e8f9c1e4d9b
+        name: 'Falha GMG'
+        type: SNMP_AGENT
+        key: failure.gmg
+        history: 2w
+        description: 'Falha GMG'
+        snmp_oid: 1.3.6.1.4.1.2606.7.4.2.2.1.11.1.24
+        triggers:
+        - uuid: 7c8f8fcdcd3e41d38b36f8fa7e9b2d0e
+          name: 'Alarme Falha GMG'
+          description: 'Alarme quando Falha GMG for 1 (Alarm)'
+          expression: 'last(/Template_Rittal_CMC_III_PU/failure.gmg)=1'
+          priority: HIGH
+
+      - uuid: 2f9b1a0f5c8e4b8b9b9e7c7f1b6f3d7d
+        name: 'Falha Gerador'
+        type: SNMP_AGENT
+        key: failure.generator
+        history: 2w     
+        description: 'Falha Gerador'
+        snmp_oid: 1.3.6.1.4.1.2606.7.4.2.2.1.11.1.18
+        triggers:
+        - uuid: 2a6d8e2d3f2e4c4b8b1b6f8a9f6c5b1d
+          name: 'Alarme Falha Gerador'
+          description: 'Alarme quando Falha Gerador for 1 (Alarm)'
+          expression: 'last(/Template_Rittal_CMC_III_PU/failure.generator)=1'
+          priority: HIGH
+
+      - uuid: 8e5c1b0d5a3b4b0a8e1e6f5f7b2f9c7d
+        name: 'Falha UPS Y'
+        type: SNMP_AGENT
+        key: failure.ups_y
+        history: 2w
+        description: 'Falha UPS Y'
+        snmp_oid: 1.3.6.1.4.1.2606.7.4.2.2.1.11.2.2
+        triggers:
+        - uuid: 3d9b5f2c9e5a4a9d8c7e3f7b8a6f2d4a
+          name: 'Alarme Falha UPS Y'
+          description: 'Alarme quando Falha UPS Y for 0 (Alarm)'
+          expression: 'last(/Template_Rittal_CMC_III_PU/failure.ups_y)=0'
+          priority: HIGH
+
+      - uuid: 3d2f8a1d8b2e4a9d8a7c8e5f6b1e4c5d
+        name: 'Falha UPS X'
+        type: SNMP_AGENT
+        key: failure.ups_x
+        history: 2w
+        description: 'Falha UPS X'
+        snmp_oid: 1.3.6.1.4.1.2606.7.4.2.2.1.11.2.8
+        triggers:
+        - uuid: 1b6a3f9c8e2e4a2b9d8e7f5a9c8e3d7f
+          name: 'Alarme Falha UPS X'
+          description: 'Alarme quando Falha UPS X for 0 (Alarm)'
+          expression: 'last(/Template_Rittal_CMC_III_PU/failure.ups_x)=0'
+          priority: HIGH
+
+      - uuid: 4b2e8a5d6b9f4d9b9c9d2c3e6f1a2d9b
+        name: 'Alarme Liquido'
+        type: SNMP_AGENT
+        key: alarm.liquid
+        history: 2w
+        description: 'Alarme Liquido'
+        snmp_oid: 1.3.6.1.4.1.2606.7.4.2.2.1.11.2.14
+        triggers:
+        - uuid: 6f7b4d9e8a2c4b9c8b1f7d2e6b5f4d3a
+          name: 'Alarme Liquido'
+          description: 'Alarme quando Alarme Liquido for 1 (Alarm)'
+          expression: 'last(/Template_Rittal_CMC_III_PU/alarm.liquid)=1'
+          priority: HIGH
+
+      - uuid: 7a6f3d9c5a1b4b3a8b1e7f8b5c8e4d8c
+        name: 'Alarme Stratos'
+        type: SNMP_AGENT
+        key: alarm.stratos
+        history: 2w
+        description: 'Alarme Stratos'
+        snmp_oid: 1.3.6.1.4.1.2606.7.4.2.2.1.11.2.20
+        triggers:
+        - uuid: 4b3e5d7a8f2c4a3c9d8e7b4f9c1d8a2b
+          name: 'Alarme Stratos'
+          description: 'Alarme quando Alarme Stratos for 1 (Alarm)'
+          expression: 'last(/Template_Rittal_CMC_III_PU/alarm.stratos)=1'
+          priority: HIGH
+
+      - uuid: 9c2e8f7b5a3d4a1b9f8c3e6f4a1b2d9c
+        name: 'Alarme Climas'
+        type: SNMP_AGENT
+        key: alarm.climas
+        history: 2w
+        description: 'Alarme Climas'
+        snmp_oid: 1.3.6.1.4.1.2606.7.4.2.2.1.11.2.26
+        triggers:
+        - uuid: 8c7f5d3e4e3a4b2b9d9f1e6c8b7a6d1d
+          name: 'Alarme Climas'
+          description: 'Alarme quando Alarme Climas for 1 (Alarm)'
+          expression: 'last(/Template_Rittal_CMC_III_PU/alarm.climas)=1'
+          priority: HIGH
+
+      - uuid: 6e4f2d9a1c7b4a9c8b1e8f3f6b9a5e7c
+        name: 'Falha FM200'
+        type: SNMP_AGENT
+        key: failure.fm200
+        history: 2w
+        description: 'Falha FM200'
+        snmp_oid: 1.3.6.1.4.1.2606.7.4.2.2.1.11.2.32
+        triggers:
+        - uuid: 3e9d7b1c8f5a4a2b8d9e7f6c3c8b5e1f
+          name: 'Alarme Falha FM200'
+          description: 'Alarme quando Falha FM200 for 1 (Alarm)'
+          expression: 'last(/Template_Rittal_CMC_III_PU/failure.fm200)=1'
+          priority: HIGH
+
+      - uuid: 5d3e9b1c6f8a4b8a9e1f7b2c5a6d8e7c
+        name: 'Porta Aberta'
+        type: SNMP_AGENT
+        key: door.open
+        history: 2w
+        description: 'Porta Aberta'
+        snmp_oid: 1.3.6.1.4.1.2606.7.4.2.2.1.11.2.38
+        triggers:
+        - uuid: 2a7b8f5c9f2a4d8b8e7f3d9b9c1f8e2a
+          name: 'Alarme Porta Aberta'
+          description: 'Alarme quando Porta Aberta for 0 (Alarm)'
+          expression: 'last(/Template_Rittal_CMC_III_PU/door.open)=0'
+          priority: INFO
+
+  graphs:
+    - uuid: 7cc3ed50c44742fb98e5f473ab571721
+      name: Humidade
+      graph_items:
+        - color: 1A7C11
+          calc_fnc: ALL
+          item:
+            host: Template_Rittal_CMC_III_PU
+            key: humidity.sensor1
+        - sortorder: '1'
+          color: '274482'
+          calc_fnc: ALL
+          item:
+            host: Template_Rittal_CMC_III_PU
+            key: humidity.sensor2
+    - uuid: e173b5490467413cab4d70b90421bdf9
+      name: Temperatura
+      graph_items:
+        - color: 1A7C11
+          calc_fnc: ALL
+          item:
+            host: Template_Rittal_CMC_III_PU
+            key: temperature.sensor1
+        - sortorder: '1'
+          color: '274482'
+          calc_fnc: ALL
+          item:
+            host: Template_Rittal_CMC_III_PU
+            key: temperature.sensor2
